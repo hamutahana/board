@@ -19,12 +19,11 @@ class BoardsController < ApplicationController
 				error_messages: board.errors.full_messages
 			}
 		end
-
-
 	end
 
 	def show
 		@board = Board.find(params[:id])
+		@comment = @board.comments.new
 	end
 
 	def edit
