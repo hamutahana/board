@@ -32,9 +32,16 @@ class BoardsController < ApplicationController
 
 	def update
 		board = Board.find(params[:id])
-		board.update(board_params)
-
-		redirect_to board
+		if board.update(board_params)
+			redirect_to board, flash: {
+				notice: "投稿を更新しました。"
+			}
+		else
+			redirect_back fallback_location: board, flash: {
+				board: board,
+				error_messages: board.errors.full_messages
+			}
+		end
 	end
 
 	def destroy
@@ -42,7 +49,7 @@ class BoardsController < ApplicationController
 		board.delete
 
 		redirect_to boards_path, flash: {
-			notice: "「#{board.title}」の掲示板を削除しました。"
+			notice: "「#{board.title}」の掲示板が削除されました。"
 		}
 	end
 
