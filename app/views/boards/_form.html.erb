@@ -1,14 +1,4 @@
-
-
-<% if flash[:error_messages].present? %>
-	<div class="alert alert-danger">
-		<ul>
-			<% flash[:error_messages].each do |error_message| %>
-				<li><%= error_message %></li>
-			<% end %>
-		</ul>
-	</div>
-<% end %>
+<%= render 'shared/error_messages'%>
 
 <%= form_with model: board do |form| %>
   <div class="mb-3">
